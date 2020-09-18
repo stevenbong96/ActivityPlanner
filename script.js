@@ -40,8 +40,10 @@ var timePlanner = [
 ]
 
 // Declare necessary variables
-var saveBtn = $(".saveBtn");
+var container = $("#container");
 var compareTime = moment().format('MMMM Do YYYY, h:mm:ss a');
+var timeHour = moment().format('H');
+// var comparator = 7;
 
 // Set the current date
 function currentTime(){
@@ -62,92 +64,71 @@ timePlanner.forEach(function(currentHour){
     timeColumn.addClass("col-md-2 hour");
 
     // Create second column
-    var descriptionColumn = $("<div>");
-    descriptionColumn.addClass("col-md-8 description");
+    // var descriptionColumn = $("<div>");
     var descriptionArea = $("<textarea>");
-    descriptionColumn.append(descriptionArea);
-
+    descriptionArea.addClass("col-md-8 description");
+    descriptionArea.text(localStorage.getItem(currentHour.time));
+    // descriptionArea.attr("id", currentHour.id);
+    // descriptionArea.append(createRow);
+    
     // Create if/else conditional statement to show past, present, and future color blocks
-    if(currentHour.time < compareTime){
-        descriptionColumn.addClass("past");
-    } else if (currentHour.time === compareTime){
-        descriptionColumn.addClass("present");
-    } else if (currentHour.time > compareTime){
-        descriptionColumn.addClass("future");
+    if(timeHour < currentHour.time){
+        descriptionArea.addClass("past");
+    } else if (timeHour == currentHour.time){
+        descriptionArea.addClass("present");
+    } else if (timeHour > currentHour.time){
+        descriptionArea.addClass("future");
     }
+    // comparator++;
 
     // Create third column
-    var saveBtn = $("<i>");
+    var saveBtn = $("<p>");
     var saveColumn = $("<button>");
-    saveColumn.addClass("cold-md-2 saveBtn");
+    saveColumn.addClass("col-md-2 saveBtn");
     saveBtn.addClass("far fa-save fa-lg");
+    saveColumn.attr("id", currentHour.id); // Give id the save button by using attr command in jQuery
     saveColumn.append(saveBtn);
 
     // Append all the variables to the main element
-    createRow.append(timeColumn, descriptionColumn, saveColumn);
-
-    // // Declare the necessary variables to create the timeblocks
-    // var createRow = $("<form>");
-    // var timeColumn = $("<div>");
-    // var descriptionColumn = $("<div>");
-    // var descriptionArea = $("<textarea>");
-    // var saveColumn = $("<button>");
-    // var saveBtn = $("<i>");
-
-    // // Give text content to the variables
-    // timeColumn.text(`${currentHour.hour}`);
-
-    // // Give each variables their own classes
-    // createRow.addClass("row");
-    // timeColumn.addClass("col-md-1 hour");
-    // descriptionColumn.addClass("col-md-9 description");
-    // saveColumn.addClass("cold-md-2 saveBtn");
-    // saveBtn.addClass("far fa-save fa-lg");
-
-    // // Append the variables
-    // $(".container").append(createRow);
-    // descriptionColumn.append(descriptionArea);
-    // saveColumn.append(saveBtn);
-    // createRow.append(timeColumn, descriptionColumn, saveColumn);
-
-    // // Give attributes to the variables
-    // // descriptionColumn.attr("id", currentHour.id);
-
-    // // Create if/else conditional statement to show past, present, and future color blocks
-    // if(currentHour.time < compareTime){
-    //     descriptionColumn.addClass("past");
-    // } else if (currentHour.time === compareTime){
-    //     descriptionColumn.addClass("present");
-    // } else if (currentHour.time > compareTime){
-    //     descriptionColumn.addClass("future");
-    // }
-
-    // Append the variables to the main body
-    // createRow.append(timeColumn, descriptionColumn, saveColumn);
+    createRow.append(timeColumn, descriptionArea, saveColumn);
 })
 
 // Saves data to local storage
-function saveToLocal(){
-    localStorage.setItem("timePlanner", JSON.stringify(timePlanner));
-    // localStorage.setItem("timePlanner", timePlanner);
+function saveToLocal(key, value){
+    localStorage.setItem(key, value);
+    // localStorage.setItem("descriptionArea", descriptionArea);
 }
 
 // To keep the data exist everytime the user refresh the page
 function loadData(){
-    localStorage.getItem("timePlanner", JSON.parse(timePlanner));
+    var getDes = JSON.parse(localStorage.getItem("descriptionArea"));
+    console.log(getDes);
+    // localStorageData.forEach(function(){
+    //     var descriptionP = $("<p>");
+    //     descriptionP.text(`${}`);
+    //     $("document").append(descriptionP);
+    // })
 }
 
 // Add event listener to the save button
-saveBtn.on("click", function(event){
-    // To prevent the form to load by itself
+container.on("click", "button", function(event){
+     // To prevent the form to load by itself
     event.preventDefault();
+    console.log(this);
+    console.log($(this));
+    // console.log($(this).prev().val());
 
     // Save data to local storage
-    saveToLocal();
+    saveToLocal(this.id, $(this).prev().val());
 
     // Load existing data
-    loadData();
+    // loadData();
 })
 
 // Call the current time function
 currentTime();
+
+// Add the clear button after the save button
+// And make the same id as the save button but different attributes
+// Do localStorage.setItem(key, $(this).prev().prev().val(""));
+// 
