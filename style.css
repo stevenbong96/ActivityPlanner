@@ -11,7 +11,7 @@ textarea{
   color: #000000;
   border-left: 1px solid black;
   padding: 10px;
-  height: 80%;
+  height: 100%;
   width: 100%;
 }
 
@@ -25,14 +25,11 @@ textarea{
 
 .description{
   white-space: pre-wrap;
-  background-color: rgb(221, 221, 221);;
 }
 
 .time-block{
   text-align: center;
   border-radius: 15px;
-  border-top: 1px black dashed;
-  padding-top: 50%;
 }
 
 .row {
