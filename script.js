@@ -41,7 +41,6 @@ var timePlanner = [
 
 // Declare necessary variables
 var saveBtn = $(".saveBtn");
-var textArea = $("#textarea");
 var compareTime = moment().format('MMMM Do YYYY, h:mm:ss a');
 
 // Set the current date
@@ -54,20 +53,19 @@ function currentTime(){
 timePlanner.forEach(function(currentHour){
     // Create row
     var createRow = $("<form>");
-    createRow.addClass("row");
+    createRow.addClass("row time-block");
     $(".container").append(createRow);
 
     // Create first column
     var timeColumn = $("<div>");
     timeColumn.text(`${currentHour.hour}`);
-    timeColumn.addClass("col-md-1 hour");
+    timeColumn.addClass("col-md-2 hour");
 
     // Create second column
     var descriptionColumn = $("<div>");
-    descriptionColumn.addClass("col-md-9 description");
+    descriptionColumn.addClass("col-md-8 description");
     var descriptionArea = $("<textarea>");
     descriptionColumn.append(descriptionArea);
-    descriptionColumn.add("id");
 
     // Create if/else conditional statement to show past, present, and future color blocks
     if(currentHour.time < compareTime){
@@ -105,7 +103,6 @@ timePlanner.forEach(function(currentHour){
     // descriptionColumn.addClass("col-md-9 description");
     // saveColumn.addClass("cold-md-2 saveBtn");
     // saveBtn.addClass("far fa-save fa-lg");
-    // descriptionColumn.addClass("id");
 
     // // Append the variables
     // $(".container").append(createRow);
@@ -132,6 +129,7 @@ timePlanner.forEach(function(currentHour){
 // Saves data to local storage
 function saveToLocal(){
     localStorage.setItem("timePlanner", JSON.stringify(timePlanner));
+    // localStorage.setItem("timePlanner", timePlanner);
 }
 
 // To keep the data exist everytime the user refresh the page
@@ -144,6 +142,11 @@ saveBtn.on("click", function(event){
     // To prevent the form to load by itself
     event.preventDefault();
 
+    // Save data to local storage
+    saveToLocal();
+
+    // Load existing data
+    loadData();
 })
 
 // Call the current time function
