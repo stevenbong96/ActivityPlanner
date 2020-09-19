@@ -1,5 +1,5 @@
-    Link to Github repo:
-    Link to the browser:
+    Link to Github repo: https://github.com/stevenbong96/ActivityPlanner
+    Link to the browser: https://stevenbong96.github.io/ActivityPlanner/
 
 Week 3 HW#2 Activity Planner
 

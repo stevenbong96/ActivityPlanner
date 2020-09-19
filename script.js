@@ -107,8 +107,3 @@ container.on("click", "button", function(event){
 
 // Call the current time function
 currentTime();
-
-// Add the clear button after the save button
-// And make the same id as the save button but different attributes
-// Do localStorage.setItem(key, $(this).prev().prev().val(""));
-// 
