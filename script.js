@@ -41,9 +41,7 @@ var timePlanner = [
 
 // Declare necessary variables
 var container = $("#container");
-var compareTime = moment().format('MMMM Do YYYY, h:mm:ss a');
 var timeHour = moment().format('H');
-// var comparator = 7;
 
 // Set the current date
 function currentTime(){
@@ -64,23 +62,21 @@ timePlanner.forEach(function(currentHour){
     timeColumn.addClass("col-md-2 hour");
 
     // Create second column
-    // var descriptionColumn = $("<div>");
     var descriptionArea = $("<textarea>");
-    descriptionArea.addClass("col-md-8 description");
+    descriptionArea.addClass("col-md-9 description");
+
+    // Get the value from the local storage
     descriptionArea.text(localStorage.getItem(currentHour.time));
-    // descriptionArea.attr("id", currentHour.id);
-    // descriptionArea.append(createRow);
     
     // Create if/else conditional statement to show past, present, and future color blocks
-    // Check this if/else statement
-    if(timeHour < currentHour.time){
+    // Using the parseInt due to the problem for 9AM textarea
+    if(currentHour.time < parseInt(timeHour)){
         descriptionArea.addClass("past");
-    } else if (timeHour == currentHour.time){
+    } else if (currentHour.time == parseInt(timeHour)){
         descriptionArea.addClass("present");
-    } else if (timeHour > currentHour.time){
+    } else if (currentHour.time > parseInt(timeHour)){
         descriptionArea.addClass("future");
     }
-    // comparator++;
 
     // Create third column
     var saveBtn = $("<p>");
@@ -97,33 +93,16 @@ timePlanner.forEach(function(currentHour){
 // Saves data to local storage
 function saveToLocal(key, value){
     localStorage.setItem(key, value);
-    // localStorage.setItem("descriptionArea", descriptionArea);
-}
-
-// To keep the data exist everytime the user refresh the page
-function loadData(){
-    var getDes = JSON.parse(localStorage.getItem("descriptionArea"));
-    console.log(getDes);
-    // localStorageData.forEach(function(){
-    //     var descriptionP = $("<p>");
-    //     descriptionP.text(`${}`);
-    //     $("document").append(descriptionP);
-    // })
 }
 
 // Add event listener to the save button
 container.on("click", "button", function(event){
      // To prevent the form to load by itself
     event.preventDefault();
-    console.log(this);
-    console.log($(this));
     // console.log($(this).prev().val());
 
     // Save data to local storage
     saveToLocal(this.id, $(this).prev().val());
-
-    // Load existing data
-    // loadData();
 })
 
 // Call the current time function

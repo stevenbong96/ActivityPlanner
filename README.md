@@ -11,4 +11,4 @@ The overall scope of this project to enhance students skill in using the jQuery 
 -   The textarea value has to be stored inside the localstorage, so whenever the user refresh the page, the value will still exist until the user decided to delete it
 
 Screenshot of the HW will be listed as below:
-   
+![Activity Planner](./screenshot.JPG)   
