@@ -72,6 +72,7 @@ timePlanner.forEach(function(currentHour){
     // descriptionArea.append(createRow);
     
     // Create if/else conditional statement to show past, present, and future color blocks
+    // Check this if/else statement
     if(timeHour < currentHour.time){
         descriptionArea.addClass("past");
     } else if (timeHour == currentHour.time){
@@ -84,8 +85,8 @@ timePlanner.forEach(function(currentHour){
     // Create third column
     var saveBtn = $("<p>");
     var saveColumn = $("<button>");
-    saveColumn.addClass("col-md-2 saveBtn");
-    saveBtn.addClass("far fa-save fa-lg");
+    saveColumn.addClass("col-md-1 saveBtn");
+    saveBtn.addClass("far fa-save");
     saveColumn.attr("id", currentHour.id); // Give id the save button by using attr command in jQuery
     saveColumn.append(saveBtn);
 
